@@ -3,21 +3,33 @@
 
 (defn is-even? [n]
   (if (= n 0)
-    __
-    (___ (is-even? (dec n)))))
+    true
+    (not (is-even? (dec n)))))
 
 (defn is-even-bigint? [n]
-  (loop [n   n
-         acc true]
+  (loop [n n acc true]
     (if (= n 0)
-      __
+      acc
       (recur (dec n) (not acc)))))
 
 (defn recursive-reverse [coll]
-  __)
+  (if (empty? coll)
+    []
+    (conj (recursive-reverse (rest coll)) (first coll))
+    )
+  )
 
 (defn factorial [n]
-  __)
+  (loop [n n acc 1]
+    ; acc is the accumulator - required when the numbers are BIG
+    ; when there are 'too many stack frames' - which I guess is
+    ; a way of saying when the rabbit hole gets too deep...
+    (if (= 1 n)
+      acc
+      (recur (dec n) (* acc n)))))
+; recur evaluates its expressions and then rebinds their values to the bindings
+; of the recursion point - in this case the loop.
+; bloody hell but that's clever...
 
 (meditations
   "Recursion ends with a base case"
